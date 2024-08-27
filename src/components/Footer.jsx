@@ -124,7 +124,7 @@ export const Footer = () => {
                   <a href="#vaishali">Vaishali</a>
                   <a href="#avanti">Mithila</a>
                   <a href="#avanti">Madhubani</a>
-                  <a href="#avanti">Girivrjja</a>
+                  <a href="#avanti">Girivrijja</a>
                 
                 </div>
               )}
