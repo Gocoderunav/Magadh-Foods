@@ -20,7 +20,7 @@ body {
 }
 
 .app {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ body {
   /* min-height: calc(100vh -77.8px -390px); */
   min-height: 100vh;
   flex: 1;
-  padding: 2rem;
+  /* padding: 2rem; */
   /* min-height: calc(100vh - 27px -703px); */
   /* margin-top: 395px; */
 }

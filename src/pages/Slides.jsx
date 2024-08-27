@@ -1,5 +1,7 @@
 
-import React, { useState } from 'react';
+
+
+import React, { useState, useEffect } from 'react';
 import './Slides.css';
 import imga from "../img/artsimg/newart16.jpg";
 import imgb from "../img/artsimg/newart15.jpg";
@@ -8,6 +10,16 @@ import imgc from "../img/artsimg/newart14.jpg";
 export const Slides = () => {
     const [current, setCurrent] = useState(0);
     const slides = [imga, imgb, imgc];
+    const slideInterval = 3000; // Change the slide every 3 seconds
+
+    useEffect(() => {
+        const autoSlide = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % slides.length);
+        }, slideInterval);
+
+        // Cleanup the interval on component unmount
+        return () => clearInterval(autoSlide);
+    }, [slides.length]);
 
     const nextSlide = () => {
         setCurrent((prev) => (prev + 1) % slides.length);

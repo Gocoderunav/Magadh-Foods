@@ -10,7 +10,10 @@ export const Menu = () => {
     <div className="menu">
      
      <Livescroll/>
+     <center>
      <p><span className="veg-icon"><VegIcon /></span>We deliver 100% veg Food</p>
+     <p style={{color:"blue"}}>Our Offerings</p>
+     </center>
 
      <DataItems/>
      

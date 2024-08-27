@@ -1,7 +1,6 @@
 
 
 
-// DataItems.js
 import React, { useEffect, useState, useRef } from 'react';
 import { db } from './Firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -13,7 +12,7 @@ export const DataItems = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
 
@@ -26,8 +25,9 @@ export const DataItems = () => {
           id: doc.id,
           ...doc.data()
         }));
+
+        // Set items and filter categories
         setItems(itemsList);
-        setFilteredItems(itemsList);
 
         const uniqueCategories = [...new Set(itemsList.map(item => item.item))];
         setCategories(['All', ...uniqueCategories]);
@@ -42,7 +42,7 @@ export const DataItems = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownVisible(false);
+        setShowDropdown(false);
       }
     };
 
@@ -52,6 +52,21 @@ export const DataItems = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const filtered = items
+      .filter(item => 
+        item.itemname && item.itemname.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (selectedCategory === 'All' || item.item === selectedCategory)
+      )
+      .sort((a, b) => {
+        if (a.imp && !b.imp) return -1;
+        if (!a.imp && b.imp) return 1;
+        return 0;
+      });
+
+    setFilteredItems(filtered);
+  }, [items, searchTerm, selectedCategory]);
+
   const handleFilter = (category) => {
     setSelectedCategory(category);
     if (category === 'All') {
@@ -60,20 +75,11 @@ export const DataItems = () => {
       const filtered = items.filter(item => item.item === category);
       setFilteredItems(filtered);
     }
-    setDropdownVisible(false);
+    setShowDropdown(false);
   };
 
   const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
-    const filtered = items.filter(item =>
-      item.itemname.toLowerCase().includes(value)
-    );
-    setFilteredItems(filtered);
-  };
-
-  const handleItemClick = (item) => {
-    setSearchTerm(item.itemname);
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -92,19 +98,13 @@ export const DataItems = () => {
         <div className="filter-dropdown" ref={dropdownRef}>
           <button
             className="filter-button"
-            onClick={() => setDropdownVisible(!dropdownVisible)}
+            onClick={() => setShowDropdown(!showDropdown)}
           >
-            <FaFilter /> Offerings
+            <FaFilter /> {selectedCategory}
           </button>
-          {dropdownVisible && (
+          {showDropdown && (
             <div className="dropdown-menu">
-              <button 
-                onClick={() => handleFilter('All')} 
-                className={selectedCategory === 'All' ? 'active' : ''}
-              >
-                All
-              </button>
-              {categories.filter(category => category !== 'All').map(category => (
+              {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => handleFilter(category)}
@@ -120,9 +120,13 @@ export const DataItems = () => {
 
       <div className="items-grid">
         {filteredItems.map(item => (
-          <div key={item.id} className="item-card" onClick={() => handleItemClick(item)}>
+          <div key={item.id} className={`item-card ${item.imp ? 'important' : ''}`}>
             <img src={item.imgUrl} alt={item.itemname} />
             <h3>{item.itemname}</h3>
+            {/* <p className="item-price">${item.price}</p> */}
+            <div className="item-description">
+              {item.description}
+            </div>
           </div>
         ))}
       </div>

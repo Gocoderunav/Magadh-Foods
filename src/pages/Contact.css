@@ -1,0 +1,28 @@
+/* Ensure the main contact container takes full height minus the footer */
+.contact {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px); /* Assuming the footer height is around 60px, adjust as needed */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Style adjustments for the Email component */
+  .contact .email {
+    flex-grow: 1; /* This makes sure the Email component grows to fill available space */
+    margin-bottom: 20px; /* Adds some spacing at the bottom */
+  }
+  
+  /* Media Queries to ensure responsiveness */
+  @media (max-width: 768px) {
+    .contact {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 540px) {
+    .contact {
+      padding: 10px;
+    }
+  }
+  

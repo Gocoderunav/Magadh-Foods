@@ -21,7 +21,7 @@
 .slide img {
     width: 100%;
     height: auto;
-    max-height: 500px; /* Ensures the image doesn't exceed a certain height */
+    max-height: 593px; /* Ensures the image doesn't exceed a certain height */
     object-fit: cover;
     display: block;
 }
@@ -55,15 +55,29 @@
 }
 
 .arrow:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
 }
 
 .left-arrow {
     left: 10px;
+    background: rgb(85, 85, 255);
+    font-size: 19px;
+    
+}
+
+.left-arrow:hover{
+    background-color: white;
+    color: black;
+}
+.right-arrow:hover{
+    background-color: white;
+    color: black;
 }
 
 .right-arrow {
     right: 10px;
+    background: rgb(85, 85, 255);
+    font-size:19px
 }
 
 @media (max-width: 768px) {
@@ -95,8 +109,8 @@
     }
 
     .slide img {
-        max-height: 250px; /* Further adjust max-height for very small screens */
-        object-fit: contain; /* Ensures the entire image is visible without being cut off */
+        max-height: 500px; /* Further adjust max-height for very small screens */
+        object-fit: fill; /* Ensures the entire image is visible without being cut off */
     }
 
     .arrow {
