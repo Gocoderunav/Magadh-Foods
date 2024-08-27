@@ -1,6 +1,7 @@
 :root {
   --primary-color: #120f0b;
-  --secondary-color: #f5ecf0;
+  --secondary-color:rgba(232, 221, 213, 0.831);
+  
   --accent-color: #ffc107;
   --text-color: #333;
   --transition: all 0.3s ease;

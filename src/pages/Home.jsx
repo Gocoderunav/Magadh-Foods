@@ -54,7 +54,7 @@ export const Intro = () => {
   const [currentColor, setCurrentColor] = useState('#FF5733');
 
   useEffect(() => {
-    const colors = ['#FF5733', '#33FF57', '#3357FF']; // Array of colors
+    const colors = ['#800000', '#00712D', '#180161']; // Array of colors
     let currentIndex = 0;
 
     const intervalId = setInterval(() => {
@@ -68,7 +68,7 @@ export const Intro = () => {
   return (
     <div className="about-us">
 
-      <h1>Welcome to Magadh Foods</h1>
+      <h1 >Welcome to Magadh Foods</h1>
       <ReactTyped
         strings={strings}
         typeSpeed={150}
